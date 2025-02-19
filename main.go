@@ -28,7 +28,7 @@ func main() {
 }
 
 /**
- * 判断文件是否存在  存在返回 true 不存在返回false
+ * 判斷文件是否存在  存在返回 true；不存在返回false
  */
 func checkFileIsExist(filename string) bool {
 	var exist = true
@@ -38,7 +38,7 @@ func checkFileIsExist(filename string) bool {
 	return exist
 }
 
-// push到github仓库
+// push到github
 func updateGithub() {
 	cmd := exec.Command("sh", "./auto.sh")
 	stdout, err := cmd.StdoutPipe()
@@ -68,7 +68,7 @@ func createWriteFile(mdContent string) {
 	checkErr(err)
 }
 
-// 请求接口获取做题进度
+// 取得解題數
 func getQuestionProgressInfo() (easy, medium, hard int) {
 	client := &http.Client{}
 	jsonStr := `{"operationName":"userQuestionProgress","variables":{"userSlug":"` + userName + `"},"query":"query userQuestionProgress($userSlug: String!) {\n  userProfileUserQuestionProgress(userSlug: $userSlug) {\n    numAcceptedQuestions {\n      difficulty\n      count\n}\n}\n}\n"}`
@@ -87,7 +87,7 @@ func getQuestionProgressInfo() (easy, medium, hard int) {
 	return
 }
 
-// 解析做题详情
+// 解析解題細節
 func analysisProgressInfo(mapResult *map[string]interface{}) (easy, medium, hard int) {
 	data := (*mapResult)["data"]
 	userProfileUserQuestionProgress := data.(map[string]interface{})["userProfileUserQuestionProgress"]
@@ -108,7 +108,7 @@ func analysisProgressInfo(mapResult *map[string]interface{}) (easy, medium, hard
 	return
 }
 
-// 读取模版文件
+// 讀取模板檔案
 func readFile() string {
 	data, err := ioutil.ReadFile("README-TEMP.md")
 	checkErr(err)
